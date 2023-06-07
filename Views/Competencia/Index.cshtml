@@ -1,0 +1,74 @@
+
+@{
+  var listaVerbos = new List<string>(){"Memorizar","Compreender","Aplicar","Analisar","Avaliar","Criar"};
+  var competencia = ViewData["tablebloom"] as Competencia;
+}
+
+<div class="row">
+@foreach (var verbo in listaVerbos) { <div class="col">@verbo</div>}
+
+
+</div>
+
+<div class="container">
+@for(var i=1; i<=7;i++)
+{
+  
+    <div class="row">
+      @for(var j = 1; j <= 6; j++)
+      {
+        <div class="col">
+        Linha @i - Coluna @j
+        </div>
+      }
+  </div>
+}
+</div>
+
+    <div class="text-center">
+        <h1 class="display-4">Taxonomia de Bloom</h1>
+
+        <form>
+
+            Digite o verbo <input type="text">
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Selecione o verbo
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Memorizar</a></li>
+                    <li><a class="dropdown-item" href="#">Compreender</a></li>
+                    <li><a class="dropdown-item" href="#">Aplicar</a></li>
+                    <li><a class="dropdown-item" href="#">Avaliar</a></li>
+                    <li><a class="dropdown-item" href="#">Criar</a></li>
+                </ul>
+            </div>
+
+            <button>Cadastrar</button>
+
+        </form>
+    </div>
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="~/" alt="Primeiro Slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="~/" alt="Segundo Slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="~/" alt="Terceiro Slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Próximo</span>
+  </a>
+</div>
