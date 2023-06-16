@@ -17,7 +17,7 @@ public class AppDbContext:DbContext{
     //configurar conexão
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-       optionsBuilder.UseSqlServer("Server=LAB-F08-28;Database=WebAppBloom;User Id=sa;Password=senai@123;TrustServerCertificate=True;");
+       optionsBuilder.UseSqlServer("Server=LAB-F08-06;Database=WebAppBloom;User Id=sa;Password=senai@123;TrustServerCertificate=True;");
     }
 
     //aplicar as configurações da tabela
@@ -25,5 +25,6 @@ public class AppDbContext:DbContext{
     {
         modelBuilder.ApplyConfiguration(new CompetenciaEntityConfig());
     }
+
 
 }

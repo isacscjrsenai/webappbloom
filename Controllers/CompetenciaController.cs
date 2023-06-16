@@ -13,12 +13,12 @@ public class CompetenciaController:Controller{
    } 
    public IActionResult Index(){
 
-         Competencia competencia = new Competencia();
-         competencia.ColunaBloom = "Memorizar";
-         competencia.LinhaBloom = "Listar";
-         ViewData["titulo"] = "Compreender o funcionamento do Razor";
-         ViewData["tablebloom"] = competencia;
-         return View();
+         var listaCompe = _context.Competencias.ToList();
+            var listaViewModel = new ListaCompetenciaViewModel{
+
+                  Competencias = listaCompe
+            };
+         return View(listaViewModel);
    }
 
    public IActionResult RelatorioCompe(){
@@ -39,5 +39,20 @@ public class CompetenciaController:Controller{
 
 
    }
+      public IActionResult Listar(){
+            var listaCompe = _context.Competencias.ToList();
+            var listaViewModel = new ListaCompetenciaViewModel{
 
+                  Competencias = listaCompe
+            };
+            return View(listaViewModel);
+      }
+
+       [HttpPost]
+       public IActionResult Index(CriarCompetenciaViewModel dados){
+            var competencia = new Competencia(dados.ColunaBloom, dados.LinhaBloom);
+            _context.Add(competencia);
+            _context.SaveChanges();
+            return  RedirectToAction(nameof(Index));
+       }
 }

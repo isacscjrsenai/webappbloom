@@ -1,165 +1,80 @@
 
-<p>Competência:</p> @ViewData["titulo"]
-@{
-   var competencia = ViewData["tablebloom"] as Competencia;
-}
-<!--Linha 1 -->
-<div class="container">
-  <div class="row">
-    <div class="col">
-      Memorizar
-    </div>
-    <div class="col">
-      Compreender
-    </div>
-    <div class="col">
-      Aplicar
-    </div>
-    <div class="col">
-      Analisar
-    </div>
-    <div class="col">
-      Avaliar
-    </div>
-    <div class="col">
-      Criar
-    </div>
-  </div>
-</div>  
+@model ListaCompetenciaViewModel
+@using System.Web
 
-<!--Linha 2 -->
-<div class="container">
-  <div class="row">
-    <div class="col">
-      @competencia?.LinhaBloom
-    </div>
-    <div class="col">
-      Linha 2 - Coluna 2
-    </div>
-    <div class="col">
-      Linha 2 - Coluna 3
-    </div>
-    <div class="col">
-      Linha 1 - Coluna 4
-    </div>
-    <div class="col">
-      Linha 1 - Coluna 5
-    </div>
-    <div class="col">
-      Linha 1 - Coluna 6
-    </div>
-  </div>
-</div>  
+<table class="table">
+   <thead>
+    <tr>
+      @{
+        List<string> classColorsList = new List<string>{"table-primary","table-secondary","table-success","table-danger","table-warning","table-info"};
+        
+        foreach(var item in Model.Competencias.Zip(classColorsList,(a,b) => new {A = a, B = b}))
+        {
+                <th class=@item.B scope="col">@item.A.ColunaBloom</th>
+        } 
+      }
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+      @{ 
+        List<List<Competencia>> partes = new List<List<Competencia>>();
+        int tamanho = 6;
+        //cria partes de 6 em 6
+        for (int i = 0; i < Model.Competencias.Count; i += tamanho)
+        {
+          partes.Add(Model.Competencias.Skip(i).Take(tamanho).ToList());
+        } 
+        foreach(var parte in partes)
+        {
+          <tr>
+          @foreach(var item in parte.Zip(classColorsList,(a,b) => new {A = a, B = b}))
+          {
+            <td class=@item.B scope="col">@item.A.LinhaBloom</td>    
+          } 
+        </tr>
+        }
+        
+      }
+    </tr>
+    
+   </tbody>
+ 
+</table>
 
-<!--Linha 3 -->
-<div class="container">
-  <div class="row">
-    <div class="col">
-      Linha 3 - Coluna 1
-    </div>
-    <div class="col">
-      Linha 3 - Coluna 2
-    </div>
-    <div class="col">
-      Linha 3 - Coluna 3
-    </div>
-    <div class="col">
-      Linha 3 - Coluna 4
-    </div>
-    <div class="col">
-      Linha 3 - Coluna 5
-    </div>
-    <div class="col">
-      Linha 3 - Coluna 6
-    </div>
-  </div>
-</div>  
+<div class="text-center">  
+  <h1 class="display-4">Taxonomia de Bloom</h1>
+</div>
 
-<!--Linha 4 -->
-<div class="container">
-  <div class="row">
-    <div class="col">
+<div>
+  <form method="post">
+    Digite o verbo <input type="text" id="verbo" name="verbo">
+    <select class="form-select" aria-label="Default select example" name="colunaBloom">
+    <option selected>Selecione o verbo</option>
+    @{
+          HashSet<string> listaColunaBloom = new HashSet<string>();
+          foreach(var item in Model.Competencias)
+          {
+            listaColunaBloom.Add(item.ColunaBloom);
+          }
+          var i=1;
+          foreach(var item in listaColunaBloom)
+          {
+            <option value=@i>@item</option>
+            i++;
+          }
+      }
+    
+    </select>
 
-      Linha 6 - Coluna 6
-    </div>
-  </div>
-</div>  
-
-<!--Linha 7 -->
-<div class="container">
-  <div class="row">
-    <div class="col">
-      Linha 7 - Coluna 1
-    </div>
-    <div class="col">
-      Linha 7 - Coluna 2
-    </div>
-    <div class="col">
-      Linha 7 - Coluna 3
-    </div>
-    <div class="col">
-      Linha 7 - Coluna 4
-    </div>
-    <div class="col">
-      Linha 7 - Coluna 5
-    </div>
-    <div class="col">
-      Linha 7 - Coluna 6
-    </div>
-  </div>
-</div>  
-
-<!--Linha 8 -->
-<div class="container">
-  <div class="row">
-    <div class="col">
-      Linha 8 - Coluna 1
-    </div>
-    <div class="col">
-      Linha 8 - Coluna 2
-    </div>
-    <div class="col">
-      Linha 8 - Coluna 3
-    </div>
-    <div class="col">
-      Linha 8 - Coluna 4
-    </div>
-    <div class="col">
-      Linha 8 - Coluna 5
-    </div>
-    <div class="col">
-      Linha 8 - Coluna 6
-    </div>
-  </div>
+    <div>
+      <button type="submit">Cadastrar</button>
+    </div> 
+  </form>
 </div>
 
 
 
-
-
-
-<div class="text-center">
-     
-    <h1 class="display-4">Taxonomia de Bloom</h1>
-    <form>
-         Digite o verbo <input type="text">
-         <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    Selecione o verbo
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#">Memorizar</a></li>
-    <li><a class="dropdown-item" href="#">Compreender</a></li>
-    <li><a class="dropdown-item" href="#">Aplicar</a></li>
-    <li><a class="dropdown-item" href="#">Avaliar</a></li>
-    <li><a class="dropdown-item" href="#">Criar</a></li>
-  </ul>
-</div>
-
-
-         <button>Cadastrar</button>
-    </form>
-</div>
 
 
 
